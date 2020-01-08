@@ -17,7 +17,7 @@ jobs:
         flags: '-avzr --delete'
         options: ''
         ssh_options: ''
-        src: '.'
+        src: './public'
         dest: 'root@isah.andros.dev:/root/isah.andros.dev'
 
     - name: Display status from deploy
