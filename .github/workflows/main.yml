@@ -9,13 +9,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Deploy to Production server
-      uses: easingthemes/ssh-deploy@v2.0.2
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@v1.1.0
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-        ARGS: "-rltgoDzvO"
-        SOURCE: "."
-        #SOURCE: "dist/"
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        TARGET: ${{ secrets.REMOTE_TARGET }}
+        DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: ''
+        src: '.'
+        dest: 'root@isah.andros.dev:/root/isah.andros.dev'
+
+    - name: Display status from deploy
+      run: echo "${{ steps.deploy.outputs.status }}"
