@@ -9,6 +9,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    
+    - name: Install NPM dependencies
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: Build parcel
+      run: parcel build index.html --out-dir dist
+
     - name: Deploy to server
       id: deploy
       uses: Pendect/action-rsyncer@v1.1.0
